@@ -1,1 +1,0 @@
-mrmEvgSetupPCI("$(DEVICE)", "_deviceid_")
