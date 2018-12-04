@@ -19,8 +19,8 @@
 #
 #   author  : Jeong Han Lee
 #   email   : jeonghan.lee@gmail.com
-#   date    : Tuesday, December  4 18:58:34 CET 2018
-#   version : 0.0.1
+#   date    : Tuesday, December  4 19:09:43 CET 2018
+#   version : 0.0.2
 
 EXIST=1
 NON_EXIST=0
@@ -28,9 +28,6 @@ NON_EXIST=0
 declare -gr SC_SCRIPT="$(realpath "$0")"
 declare -gr SC_TOP="${SC_SCRIPT%/*}"
 
-
-function pushd { builtin pushd "$@" > /dev/null; }
-function popd { builtin popd "$@" > /dev/null; }
 
 
 function checkIfVar()
@@ -49,11 +46,13 @@ function checkIfVar()
 }
 
 
-C=$(lspci -nm |grep 20e6 | cut -d' ' -f1)
+C="$(lspci -nm |grep 20e6 | cut -d' ' -f1)"
+
+#echo ${C}
 
 
 if [[ $(checkIfVar "${C}") -eq "$EXIST" ]]; then
-    sed -e "s:_deviceid_:$C:g" < ${SC_TOP}/random_cpci.in > ${SC_TOP}/random_cpci.cmd
+    sed -e "s\_deviceid_\\${C}\g" < ${SC_TOP}/random_cpci.in > ${SC_TOP}/random_cpci.cmd
 else
     printf "We cannot find the CPCI EVG 230 in the system\n";
     exit;
