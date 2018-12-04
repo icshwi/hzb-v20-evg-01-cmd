@@ -15,8 +15,9 @@ epicsEnvSet("MainEvtCODE" "14")
 epicsEnvSet("HeartBeatEvtCODE"   "122")
 epicsEnvSet("ESSEvtClockRate"  "88.0525")
 
-#mrmEvgSetupPCI($(DEV1), "6:0d.0")
 mrmEvgSetupPCI($(DEV1), "5:0d.0")
+mrmEvgSetupPCI($(DEV1), "6:0d.0")
+
 dbLoadRecords("evg-cpci-230-ess.db",  "SYS=$(IOC), D=$(DEV1), EVG=$(DEV1), FEVT=$(ESSEvtClockRate), FRF=$(ESSEvtClockRate), FDIV=1, PINITSEQ=0")
 
 # iocStats
@@ -75,18 +76,18 @@ dbpf $(IOC)-$(DEV1):1ppsInp-MbbiDir_.TPRO 1
 
 ############## Master Event Rate 14 Hz ##############
 dbpf $(IOC)-$(DEV1):Mxc0-Prescaler-SP 6289464
-#dbpf $(IOC)-$(DEV1):TrigEvt0-EvtCode-SP $(MainEvtCODE)
-#dbpf $(IOC)-$(DEV1):TrigEvt0-TrigSrc-Sel "Mxc0"
+dbpf $(IOC)-$(DEV1):TrigEvt0-EvtCode-SP $(MainEvtCODE)
+dbpf $(IOC)-$(DEV1):TrigEvt0-TrigSrc-Sel "Mxc0"
 # Setup of sequencer
 dbpf $(IOC)-$(DEV1):SoftSeq0-RunMode-Sel "Normal"
 dbpf $(IOC)-$(DEV1):SoftSeq0-TrigSrc-Sel "Mxc0"
 dbpf $(IOC)-$(DEV1):SoftSeq0-TsResolution-Sel "uSec"
-epicsThreadSleep 5
-dbpf $(IOC)-$(DEV1):SoftSeq0-Load-Cmd 1
-dbpf $(IOC)-$(DEV1):SoftSeq0-Enable-Cmd 1
+#epicsThreadSleep 5
+#dbpf $(IOC)-$(DEV1):SoftSeq0-Load-Cmd 1
+#dbpf $(IOC)-$(DEV1):SoftSeq0-Enable-Cmd 1
 # Load the sequence
-system("/bin/sh ./configure_sequencer_14Hz.sh $(IOC) $(DEV1)")
-dbpf $(IOC)-$(DEV1):SoftSeq0-Commit-Cmd 1
+#system("/bin/sh ./configure_sequencer_14Hz.sh $(IOC) $(DEV1)")
+#dbpf $(IOC)-$(DEV1):SoftSeq0-Commit-Cmd 1
 ############## Master Event Rate 14 Hz ##############
 
 # # Heart Beat 1 Hz
