@@ -8,8 +8,8 @@ require autosave, 5.9.0
 epicsEnvSet("ENGINEER","Nicklas Holmberg")
 epicsEnvSet("LOCATION","Utgard")
 
-epicsEnvSet("IOC", "LabS-Utgard-VIP:TS")
-epicsEnvSet("DEV1", "EVG-1")
+epicsEnvSet("IOC", "HZB-V20:TS")
+epicsEnvSet("DEV1", "EVG-01")
 
 epicsEnvSet("MainEvtCODE" "14")
 epicsEnvSet("HeartBeatEvtCODE"   "122")
