@@ -15,8 +15,12 @@ epicsEnvSet("MainEvtCODE" "14")
 epicsEnvSet("HeartBeatEvtCODE"   "122")
 epicsEnvSet("ESSEvtClockRate"  "88.0525")
 
-mrmEvgSetupPCI($(DEV1), "5:0d.0")
-mrmEvgSetupPCI($(DEV1), "6:0d.0")
+epicsEnvSet("EPICS_CMDS", "/epics/iocs/cmds")
+# Find the PCI bus number for the cards in the crate
+system("$(EPICS_CMDS)/mrfioc2-common-cmd/find_pci_bus_id.bash")
+< "$(EPICS_CMDS)/mrfioc2-common-cmd/pci_bus_id"
+
+mrmEvgSetupPCI($(DEV1), "$(PCI_BUS_NUM):0d.0")
 
 dbLoadRecords("evg-cpci-230-ess.db",  "SYS=$(IOC), D=$(DEV1), EVG=$(DEV1), FEVT=$(ESSEvtClockRate), FRF=$(ESSEvtClockRate), FDIV=1, PINITSEQ=0")
 
