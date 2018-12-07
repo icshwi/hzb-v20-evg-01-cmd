@@ -6,7 +6,7 @@ export BASE_VER="7.0.1.1"
 export REQUIRE_VER="3.0.4"
 export E3_BIN_DIR="/epics/base-$BASE_VER/require/$REQUIRE_VER/bin"
 export PROCSERV="/usr/bin/procServ"
-export PROCSERV_PORT=2002
+export PROCSERV_PORT=2000
 export PROCSERV_RUN_DIR=$IOC_NAME
 export PROCSERV_LOG_FILE=out-HZB-V20-EVG-01
 
